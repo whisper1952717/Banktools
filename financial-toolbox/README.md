@@ -81,7 +81,46 @@ npm run preview
 
 ## 🌐 部署指南
 
-### 部署到 Vercel（推荐）
+### 部署到阿里云 ECS（推荐用于国内访问）
+
+详细的阿里云部署指南请查看：
+- **完整文档**: [DEPLOYMENT.md](./DEPLOYMENT.md)
+- **快速指南**: [QUICK_DEPLOY.md](./QUICK_DEPLOY.md)
+
+**快速部署步骤**：
+
+1. **服务器配置**（首次部署）
+```bash
+# 上传配置脚本到服务器
+scp financial-toolbox/server-setup.sh root@your-server-ip:/root/
+
+# 在服务器上运行
+ssh root@your-server-ip
+chmod +x /root/server-setup.sh
+/root/server-setup.sh
+```
+
+2. **配置部署脚本**（本地）
+```bash
+# 编辑 deploy.sh，修改服务器 IP
+vi deploy.sh
+# 修改 SERVER_IP="your-server-ip"
+
+# 添加执行权限
+chmod +x deploy.sh
+```
+
+3. **执行部署**
+```bash
+./deploy.sh
+```
+
+**系统要求**：
+- 操作系统：Alibaba Cloud Linux 3 / CentOS 7+ / Ubuntu 20.04+
+- 内存：1GB 以上
+- 磁盘：10GB 以上
+
+### 部署到 Vercel
 
 1. 在 [Vercel](https://vercel.com) 注册账号
 2. 导入 GitHub 仓库
@@ -126,42 +165,6 @@ export default defineConfig({
 npm run build
 # 使用 gh-pages 部署
 npx gh-pages -d dist
-```
-
-### 部署到自己的服务器
-
-1. 构建项目：
-
-```bash
-npm run build
-```
-
-2. 将 `dist` 目录上传到服务器
-
-3. 配置 Nginx：
-
-```nginx
-server {
-    listen 80;
-    server_name your-domain.com;
-    root /path/to/dist;
-    index index.html;
-
-    # SPA 路由支持
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-
-    # 静态资源缓存
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-    }
-
-    # Gzip 压缩
-    gzip on;
-    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
-}
 ```
 
 ## 📂 项目结构

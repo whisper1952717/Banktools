@@ -1,0 +1,10 @@
+# robots.txt for 金融工具箱
+
+User-agent: *
+Allow: /
+
+# 禁止爬取资源文件
+Disallow: /assets/
+
+# 站点地图（如果有的话）
+# Sitemap: https://your-domain.com/sitemap.xml

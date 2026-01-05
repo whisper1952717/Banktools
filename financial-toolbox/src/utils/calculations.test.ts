@@ -8,7 +8,6 @@ import * as fc from 'fast-check';
 import {
   calculateSimpleInterest,
   calculateCompoundInterest,
-  calculateIRR,
 } from './calculations';
 
 /**

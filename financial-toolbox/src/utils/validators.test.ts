@@ -138,7 +138,7 @@ describe('属性测试：输入验证', () => {
                 .filter(n => Math.abs(n) > 0.01), // 排除接近0的值
             }),
             { minLength: 2, maxLength: 50 }
-          ).chain((cashFlows) => {
+          ).chain((cashFlows): fc.Arbitrary<{ year: number; amount: number; }[]> => {
             // 确保年份唯一
             const uniqueYears = Array.from(new Set(cashFlows.map(cf => cf.year)));
             const uniqueCashFlows = uniqueYears.map(year => {
@@ -158,9 +158,9 @@ describe('属性测试：输入验证', () => {
             return fc.constant([
               { year: 0, amount: -1000 },
               { year: 1, amount: 1500 },
-            ]);
+            ] as { year: number; amount: number; }[]);
           }),
-          (cashFlows) => {
+          (cashFlows: { year: number; amount: number; }[]) => {
             const result = validateCashFlows(cashFlows);
             expect(result.isValid).toBe(true);
             expect(result.errorMessage).toBeUndefined();

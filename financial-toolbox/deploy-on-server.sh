@@ -102,17 +102,31 @@ print_step "构建项目..."
 npm run build
 if [ $? -ne 0 ]; then
     print_error "构建失败"
+    print_info "请检查构建错误信息"
     exit 1
 fi
 print_success "构建完成"
 echo ""
 
 # 检查 dist 目录
+print_step "检查构建产物..."
 if [ ! -d "dist" ]; then
-    print_error "dist 目录不存在"
+    print_error "dist 目录不存在，构建可能失败"
+    print_info "当前目录: $(pwd)"
+    print_info "目录内容:"
+    ls -la
     exit 1
 fi
-print_success "dist 目录存在"
+
+# 检查 dist 目录是否为空
+if [ ! "$(ls -A dist)" ]; then
+    print_error "dist 目录为空"
+    exit 1
+fi
+
+print_success "dist 目录存在且包含文件"
+print_info "dist 目录内容:"
+ls -la dist/ | head -10
 echo ""
 
 # 备份旧版本
@@ -142,13 +156,43 @@ echo ""
 
 # 复制文件
 print_step "复制文件到部署目录..."
+print_info "源目录: $(pwd)/dist/"
+print_info "目标目录: $DEPLOY_PATH"
+
+# 确保目标目录存在且为空
 rm -rf "$DEPLOY_PATH"/*
-cp -r dist/* "$DEPLOY_PATH"/
-if [ $? -ne 0 ]; then
-    print_error "文件复制失败"
+
+# 使用 rsync 或 cp -r 复制整个目录
+if command -v rsync &> /dev/null; then
+    # 优先使用 rsync
+    rsync -av dist/ "$DEPLOY_PATH"/
+    if [ $? -ne 0 ]; then
+        print_error "rsync 复制失败，尝试使用 cp"
+        cp -r dist/. "$DEPLOY_PATH"/
+    else
+        print_success "文件复制完成（使用 rsync）"
+    fi
+else
+    # 使用 cp -r 复制目录内容
+    cp -r dist/. "$DEPLOY_PATH"/
+    if [ $? -ne 0 ]; then
+        print_error "文件复制失败"
+        print_info "尝试查看 dist 目录:"
+        ls -la dist/
+        exit 1
+    fi
+    print_success "文件复制完成（使用 cp）"
+fi
+
+# 验证复制结果
+if [ ! -f "$DEPLOY_PATH/index.html" ]; then
+    print_error "复制后 index.html 不存在，复制可能失败"
+    print_info "部署目录内容:"
+    ls -la "$DEPLOY_PATH"
     exit 1
 fi
-print_success "文件复制完成"
+
+print_success "文件复制验证通过"
 echo ""
 
 # 设置权限

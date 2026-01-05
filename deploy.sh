@@ -133,11 +133,20 @@ echo ""
 # 上传文件到服务器
 print_info "上传文件到服务器..."
 rsync -avz --delete --progress dist/ $SERVER_USER@$SERVER_IP:$DEPLOY_PATH/
-if [ $? -ne 0 ]; then
-    print_error "上传失败"
+RSYNC_EXIT_CODE=$?
+
+# rsync 退出码处理：
+# 0 = 成功
+# 24 = 部分传输成功（某些文件在传输时消失，通常是临时文件）
+if [ $RSYNC_EXIT_CODE -eq 0 ] || [ $RSYNC_EXIT_CODE -eq 24 ]; then
+    if [ $RSYNC_EXIT_CODE -eq 24 ]; then
+        print_info "注意：某些临时文件在传输时消失（这是正常的）"
+    fi
+    print_success "上传完成"
+else
+    print_error "上传失败（退出码: $RSYNC_EXIT_CODE）"
     exit 1
 fi
-print_success "上传完成"
 echo ""
 
 # 设置文件权限

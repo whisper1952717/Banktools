@@ -1,0 +1,426 @@
+/**
+ * IRR计算器页面样式
+ */
+
+.irr-calculator-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* 页面标题 */
+.page-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #262626;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.title-icon {
+  font-size: 32px;
+  color: #1890ff;
+}
+
+.page-subtitle {
+  font-size: 16px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+/* 版本切换 */
+.mode-switcher {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.mode-switcher .ant-segmented {
+  background: #f0f0f0;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.mode-switcher .ant-segmented-item-selected {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* 周期选择器 */
+.period-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+.period-label {
+  font-weight: 600;
+  color: #262626;
+}
+
+/* 卡片样式 */
+.input-card,
+.result-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 20px;
+}
+
+/* 进阶参数区域 */
+.advanced-params {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.params-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.params-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.param-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.param-item label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #595959;
+  display: flex;
+  align-items: center;
+}
+
+/* 现金流提示 */
+.cash-flow-hint {
+  background: #e6f7ff;
+  border: 1px solid #91d5ff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.cash-flow-hint p {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  color: #0050b3;
+}
+
+.cash-flow-hint ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #0050b3;
+}
+
+.cash-flow-hint li {
+  margin: 4px 0;
+}
+
+/* 现金流表格 */
+.cash-flow-table {
+  margin-bottom: 16px;
+}
+
+.cash-flow-table .ant-table {
+  font-size: 15px;
+}
+
+.cash-flow-table .ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 16px;
+}
+
+.cash-flow-table .ant-table-tbody > tr > td {
+  padding: 12px 16px;
+}
+
+/* IRR结果展示 */
+.irr-result {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  color: white;
+  margin-bottom: 24px;
+}
+
+.irr-label {
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 12px;
+}
+
+.irr-value {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.irr-interpretation {
+  font-size: 18px;
+  opacity: 0.95;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* 周期收益率显示 */
+.irr-period-rate {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
+
+/* NPV验证信息 */
+.npv-verification {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.npv-label {
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.npv-value {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+}
+
+.npv-hint {
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* 进阶版结果区域 */
+.advanced-results {
+  margin-bottom: 24px;
+}
+
+.result-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.result-item {
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.result-item.mirr-result {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+}
+
+.result-item.npv-result {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.result-label {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-value {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.result-hint {
+  font-size: 14px;
+  opacity: 0.9;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* IRR说明 */
+.irr-explanation {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.irr-explanation h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 12px;
+}
+
+.irr-explanation p {
+  font-size: 15px;
+  color: #595959;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.irr-explanation ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #595959;
+}
+
+.irr-explanation li {
+  margin: 8px 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .irr-calculator-container {
+    padding: 16px 12px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .title-icon {
+    font-size: 28px;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+
+  /* 进阶参数响应式 */
+  .params-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .advanced-params {
+    padding: 16px;
+  }
+
+  /* 结果区域响应式 */
+  .result-row {
+    grid-template-columns: 1fr;
+  }
+
+  .result-value {
+    font-size: 28px;
+  }
+
+  .cash-flow-hint {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .cash-flow-table .ant-table-thead > tr > th,
+  .cash-flow-table .ant-table-tbody > tr > td {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .irr-result {
+    padding: 24px 16px;
+  }
+
+  .irr-value {
+    font-size: 36px;
+  }
+
+  .irr-interpretation {
+    font-size: 16px;
+    padding: 10px 16px;
+  }
+
+  .irr-explanation {
+    padding: 16px;
+  }
+
+  .irr-explanation h3 {
+    font-size: 16px;
+  }
+
+  .irr-explanation p,
+  .irr-explanation li {
+    font-size: 14px;
+  }
+}
+
+/* 小屏手机优化 */
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 20px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .title-icon {
+    font-size: 24px;
+  }
+
+  .irr-value {
+    font-size: 32px;
+  }
+
+  /* 表格在小屏幕上横向滚动 */
+  .cash-flow-table {
+    overflow-x: auto;
+  }
+}

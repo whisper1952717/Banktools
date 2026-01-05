@@ -1,0 +1,181 @@
+/* 数字输入容器 */
+.number-input-container {
+  margin-bottom: 24px;
+}
+
+.number-input-container.has-error .number-input-field {
+  border-color: #ff4d4f;
+}
+
+.number-input-container.has-error .number-input-field:focus {
+  border-color: #ff4d4f;
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.1);
+}
+
+/* 标签 */
+.number-input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #262626;
+}
+
+.number-input-unit-label {
+  font-weight: 400;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+/* 输入框包装器 */
+.number-input-wrapper {
+  position: relative;
+}
+
+.number-input-field {
+  width: 100%;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid #d9d9d9;
+  transition: all 0.3s;
+}
+
+.number-input-field:hover {
+  border-color: #40a9ff;
+}
+
+.number-input-field:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+}
+
+.input-suffix {
+  color: #8c8c8c;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* 滑块 */
+.number-input-slider {
+  margin-top: 16px;
+  padding: 0 8px;
+}
+
+.slider-range {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+/* 错误提示 */
+.number-input-error {
+  margin-top: 8px;
+  color: #ff4d4f;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.number-input-error::before {
+  content: '⚠️';
+}
+
+/* 提示文本 */
+.number-input-hint {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+/* 响应式设计 - 手机 */
+@media (max-width: 640px) {
+  .number-input-container {
+    margin-bottom: 20px;
+  }
+
+  .number-input-label {
+    font-size: 14px;
+  }
+
+  .number-input-field {
+    font-size: 16px; /* 防止iOS自动缩放 */
+    min-height: 44px; /* 确保触控区域足够大 */
+  }
+
+  .number-input-slider {
+    margin-top: 12px;
+  }
+
+  .number-input-hint {
+    font-size: 11px;
+  }
+}
+
+/* 响应式设计 - 平板 */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .number-input-field {
+    font-size: 16px;
+  }
+
+  .number-input-label {
+    font-size: 15px;
+  }
+}
+
+/* 大屏幕优化 */
+@media (min-width: 1025px) {
+  .number-input-field {
+    font-size: 16px;
+  }
+}
+
+/* Ant Design InputNumber 样式覆盖 */
+.number-input-field.ant-input-lg {
+  padding: 12px 16px;
+  font-size: 16px;
+}
+
+.number-input-field.ant-input-lg .ant-input-suffix {
+  font-size: 14px;
+}
+
+/* 滑块样式定制 */
+.number-input-slider .ant-slider-rail {
+  background-color: #f0f0f0;
+  height: 6px;
+}
+
+.number-input-slider .ant-slider-track {
+  background-color: #1890ff;
+  height: 6px;
+}
+
+.number-input-slider .ant-slider-handle {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #1890ff;
+  background-color: #ffffff;
+}
+
+.number-input-slider .ant-slider-handle:hover,
+.number-input-slider .ant-slider-handle:focus {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 4px rgba(24, 144, 255, 0.12);
+}
+
+/* 移动端滑块优化 */
+@media (max-width: 640px) {
+  .number-input-slider .ant-slider-handle {
+    width: 24px;
+    height: 24px;
+    border-width: 4px;
+  }
+
+  .number-input-slider .ant-slider-rail,
+  .number-input-slider .ant-slider-track {
+    height: 8px;
+  }
+}

@@ -1,0 +1,354 @@
+/* 首页容器 */
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+/* 标题区域 */
+.home-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.home-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #262626;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.title-icon {
+  font-size: 42px;
+}
+
+.title-version {
+  font-size: 16px;
+  font-weight: 400;
+  color: #1890ff;
+  background: #e6f7ff;
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+.home-subtitle {
+  font-size: 16px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+/* 工具卡片网格 */
+.tools-grid {
+  margin-bottom: 48px;
+}
+
+/* 工具卡片 */
+.tool-card {
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.tool-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.tool-card-content {
+  padding: 8px;
+}
+
+/* 工具图标 */
+.tool-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+/* 工具标题 */
+.tool-header {
+  margin-bottom: 12px;
+}
+
+.tool-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #262626;
+  margin: 0 0 4px 0;
+  line-height: 1.4;
+}
+
+.tool-subtitle {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: currentColor;
+  color: white !important;
+  opacity: 0.9;
+}
+
+/* 工具描述 */
+.tool-description {
+  font-size: 14px;
+  color: #595959;
+  margin: 0 0 16px 0;
+  line-height: 1.6;
+}
+
+/* 工具亮点 */
+.tool-highlight {
+  font-size: 15px;
+  font-weight: 500;
+  color: #262626;
+  padding: 12px 16px;
+  background: #fafafa;
+  border-radius: 8px;
+  border-left: 4px solid;
+  margin-bottom: 16px;
+}
+
+/* 特性标签 */
+.tool-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.feature-tag {
+  font-size: 13px;
+  color: #595959;
+  background: #f5f5f5;
+  padding: 4px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* 操作按钮 */
+.tool-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #f0f2f5 0%, #fafafa 100%);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.tool-card:hover .tool-action {
+  background: linear-gradient(135deg, #e6f7ff 0%, #f0f9ff 100%);
+}
+
+.action-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1890ff;
+}
+
+.action-icon {
+  font-size: 14px;
+  color: #1890ff;
+  transition: transform 0.3s;
+}
+
+.tool-card:hover .action-icon {
+  transform: translateX(4px);
+}
+
+/* 底部信息卡片 */
+.home-footer-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.info-card {
+  text-align: center;
+  padding: 24px 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.info-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #262626;
+  margin: 0 0 8px 0;
+}
+
+.info-card p {
+  font-size: 13px;
+  color: #8c8c8c;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* 响应式设计 - 手机竖屏 */
+@media (max-width: 640px) {
+  .home-container {
+    padding: 16px 0;
+  }
+
+  .home-header {
+    margin-bottom: 32px;
+  }
+
+  .home-title {
+    font-size: 24px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .title-icon {
+    font-size: 32px;
+  }
+
+  .title-version {
+    font-size: 14px;
+  }
+
+  .home-subtitle {
+    font-size: 14px;
+    padding: 0 16px;
+  }
+
+  .tools-grid {
+    margin-bottom: 32px;
+  }
+
+  .tool-card-content {
+    padding: 4px;
+  }
+
+  .tool-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .tool-title {
+    font-size: 18px;
+  }
+
+  .tool-subtitle {
+    font-size: 12px;
+  }
+
+  .tool-description {
+    font-size: 13px;
+  }
+
+  .tool-highlight {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .feature-tag {
+    font-size: 12px;
+    padding: 3px 10px;
+  }
+
+  .home-footer-info {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .info-card {
+    padding: 20px 16px;
+  }
+
+  .info-card h3 {
+    font-size: 15px;
+  }
+
+  .info-card p {
+    font-size: 12px;
+  }
+}
+
+/* 响应式设计 - 手机横屏/小平板 */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .home-title {
+    font-size: 30px;
+  }
+
+  .title-icon {
+    font-size: 36px;
+  }
+
+  .home-subtitle {
+    font-size: 15px;
+  }
+
+  .tool-title {
+    font-size: 19px;
+  }
+
+  .home-footer-info {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+/* 大屏幕优化 */
+@media (min-width: 1025px) {
+  .home-container {
+    padding: 32px 0;
+  }
+
+  .home-header {
+    margin-bottom: 56px;
+  }
+
+  .tool-card-content {
+    padding: 12px;
+  }
+
+  .tools-grid {
+    margin-bottom: 56px;
+  }
+}
+
+/* 卡片动画 */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tool-card {
+  animation: cardFadeIn 0.5s ease-out;
+}
+
+.tool-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.tool-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.tool-card:nth-child(3) {
+  animation-delay: 0.3s;
+}

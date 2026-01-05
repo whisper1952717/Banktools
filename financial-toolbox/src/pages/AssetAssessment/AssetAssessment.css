@@ -1,0 +1,407 @@
+/**
+ * 资产体检页面样式
+ */
+
+.asset-assessment-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* 页面标题 */
+.page-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #262626;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.title-icon {
+  font-size: 32px;
+  color: #52c41a;
+}
+
+.page-subtitle {
+  font-size: 16px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+/* 卡片样式 */
+.questionnaire-card,
+.result-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 20px;
+}
+
+/* 问卷头部 */
+.questionnaire-header {
+  margin-bottom: 24px;
+}
+
+.progress-info {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #595959;
+}
+
+/* 问题项 */
+.question-item {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 20px;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.question-item:hover {
+  border-color: #1890ff;
+  background: #f0f8ff;
+}
+
+.question-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.question-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #1890ff;
+  color: white;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.question-category {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #e6f7ff;
+  color: #0050b3;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.question-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #262626;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.question-options {
+  width: 100%;
+}
+
+.option-radio {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: white;
+  border: 2px solid #d9d9d9;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s;
+  min-height: 48px;
+}
+
+.option-radio:hover {
+  border-color: #1890ff;
+  background: #f0f8ff;
+}
+
+.option-radio .ant-radio-checked + span {
+  color: #1890ff;
+  font-weight: 500;
+}
+
+/* 提交按钮 */
+.submit-button {
+  margin-top: 8px;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* 风险评分区域 */
+.risk-score-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  padding: 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.score-gauge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-circle {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 8px solid;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.score-value {
+  font-size: 48px;
+  font-weight: 700;
+  color: #262626;
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 14px;
+  color: #8c8c8c;
+  margin-top: 8px;
+}
+
+.risk-level-info {
+  text-align: center;
+  color: white;
+}
+
+.risk-level-badge {
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 24px;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.risk-level-desc {
+  font-size: 16px;
+  opacity: 0.95;
+}
+
+/* 评分说明 */
+.score-explanation {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.score-explanation h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 12px;
+}
+
+.score-explanation ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #595959;
+}
+
+.score-explanation li {
+  margin: 8px 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* 建议区域 */
+.suggestions-section {
+  margin-bottom: 24px;
+}
+
+.suggestions-section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 16px;
+}
+
+.suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #e6f7ff;
+  border-left: 4px solid #1890ff;
+  border-radius: 8px;
+}
+
+.suggestion-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  background: #1890ff;
+  color: white;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.suggestion-text {
+  flex: 1;
+  font-size: 15px;
+  color: #0050b3;
+  line-height: 1.6;
+}
+
+/* 重要提示 */
+.important-notice {
+  background: #fff7e6;
+  border: 1px solid #ffd591;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.important-notice p {
+  margin: 0;
+  font-size: 14px;
+  color: #ad6800;
+  line-height: 1.6;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .asset-assessment-container {
+    padding: 16px 12px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .title-icon {
+    font-size: 28px;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+
+  .question-item {
+    padding: 16px;
+  }
+
+  .question-text {
+    font-size: 15px;
+  }
+
+  .option-radio {
+    padding: 10px 12px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+
+  .risk-score-section {
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 16px;
+  }
+
+  .score-circle {
+    width: 140px;
+    height: 140px;
+  }
+
+  .score-value {
+    font-size: 40px;
+  }
+
+  .risk-level-badge {
+    font-size: 20px;
+    padding: 10px 24px;
+  }
+
+  .risk-level-desc {
+    font-size: 14px;
+  }
+
+  .score-explanation,
+  .suggestions-section {
+    padding: 16px;
+  }
+
+  .score-explanation h3,
+  .suggestions-section h3 {
+    font-size: 16px;
+  }
+
+  .score-explanation li,
+  .suggestion-text {
+    font-size: 14px;
+  }
+}
+
+/* 小屏手机优化 */
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 20px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .title-icon {
+    font-size: 24px;
+  }
+
+  .question-header {
+    flex-wrap: wrap;
+  }
+
+  .score-circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .score-value {
+    font-size: 36px;
+  }
+}

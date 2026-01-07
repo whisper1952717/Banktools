@@ -191,7 +191,22 @@ rm -rf node_modules package-lock.json
 npm install
 ```
 
-### 问题 3：构建失败
+### 问题 3：构建失败（内存不足）
+```bash
+# 如果构建时出现 "Killed" 错误，说明内存不足
+# 需要扩大 swap 空间
+
+# 运行 swap 扩容脚本
+cd /www/program/金融工具箱/financial-calculation-tools/financial-toolbox
+chmod +x add-swap.sh
+sudo ./add-swap.sh
+
+# 按提示输入 swap 大小（推荐 4-6GB）
+# 然后重新运行构建
+./deploy-simple.sh
+```
+
+### 问题 4：构建失败（其他原因）
 ```bash
 # 检查 Node.js 版本（需要 >= 18.0.0）
 node -v
@@ -200,14 +215,14 @@ node -v
 npm run build
 ```
 
-### 问题 4：权限问题
+### 问题 5：权限问题
 ```bash
 # 手动设置权限
 sudo chown -R nginx:nginx /www/program/金融工具箱/financial-calculation-tools
 sudo chmod -R 755 /www/program/金融工具箱/financial-calculation-tools
 ```
 
-### 问题 5：Nginx 配置错误
+### 问题 6：Nginx 配置错误
 ```bash
 # 测试配置
 nginx -t

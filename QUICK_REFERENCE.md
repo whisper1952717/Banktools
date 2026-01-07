@@ -37,6 +37,7 @@ cd financial-toolbox
 ## 📖 详细文档
 
 - **[SERVER_DEPLOY_GUIDE.md](./SERVER_DEPLOY_GUIDE.md)** - Git 部署指南 ⭐
+- **[MEMORY_FIX.md](./MEMORY_FIX.md)** - 解决内存不足问题 🔥
 - **[START_HERE.md](./START_HERE.md)** - 快速开始
 - **[DEPLOY_TO_YOUR_SERVER.md](./financial-toolbox/DEPLOY_TO_YOUR_SERVER.md)** - 详细指南
 
@@ -69,6 +70,17 @@ certbot --nginx -d www.lovetest.asia -d lovetest.asia
 
 ## 🆘 快速故障排查
 
+### 构建失败（内存不足）
+```bash
+# 如果看到 "Killed" 错误，运行：
+cd /www/program/金融工具箱/financial-calculation-tools/financial-toolbox
+chmod +x add-swap.sh
+sudo ./add-swap.sh
+# 输入 4 或 6 (GB)，然后重新部署
+./deploy-simple.sh
+```
+
+### 其他问题
 ```bash
 # 检查文件是否存在
 ls -la /www/program/金融工具箱/financial-calculation-tools/
@@ -82,6 +94,9 @@ chmod -R 755 /www/program/金融工具箱/financial-calculation-tools
 
 # 查看 Nginx 错误
 tail -20 /var/log/nginx/financial-toolbox-error.log
+
+# 查看内存状态
+free -h
 ```
 
 ---

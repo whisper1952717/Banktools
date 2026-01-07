@@ -70,7 +70,7 @@ const CompoundCalculator: React.FC = () => {
       <Card className="input-card" bordered={false}>
         <h2 className="card-title">📝 输入参数</h2>
 
-        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <NumberInput
             label="本金"
             value={principal}
@@ -78,7 +78,7 @@ const CompoundCalculator: React.FC = () => {
             min={1000}
             max={100000000}
             unit="元"
-            showSlider={true}
+            showSlider={false}
             step={10000}
             precision={0}
           />
@@ -90,7 +90,7 @@ const CompoundCalculator: React.FC = () => {
             min={0.1}
             max={20}
             unit="%"
-            showSlider={true}
+            showSlider={false}
             step={0.1}
             precision={1}
           />
@@ -102,7 +102,7 @@ const CompoundCalculator: React.FC = () => {
             min={0.1}
             max={20}
             unit="%"
-            showSlider={true}
+            showSlider={false}
             step={0.1}
             precision={1}
           />
@@ -114,7 +114,7 @@ const CompoundCalculator: React.FC = () => {
             min={1}
             max={50}
             unit="年"
-            showSlider={true}
+            showSlider={false}
             step={1}
             precision={0}
           />

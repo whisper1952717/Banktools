@@ -52,16 +52,10 @@ const IRRCalculator: React.FC = () => {
   // 现金流周期
   const [period, setPeriod] = useState<CashFlowPeriod>('yearly');
 
-  // 现金流状态 - 默认示例数据
+  // 现金流状态 - 不设置默认值
   const [cashFlows, setCashFlows] = useState<CashFlowItem[]>([
-    { year: 0, amount: -100000 },
-    { year: 1, amount: -100000 },
-    { year: 2, amount: -100000 },
-    { year: 3, amount: -100000 },
-    { year: 4, amount: -100000 },
-    { year: 5, amount: 25000 },
-    { year: 6, amount: 25000 },
-    { year: 7, amount: 25000 },
+    { year: 0, amount: 0 },
+    { year: 1, amount: 0 },
   ]);
 
   // 进阶版参数
@@ -133,14 +127,8 @@ const IRRCalculator: React.FC = () => {
    */
   const handleReset = () => {
     setCashFlows([
-      { year: 0, amount: -100000 },
-      { year: 1, amount: -100000 },
-      { year: 2, amount: -100000 },
-      { year: 3, amount: -100000 },
-      { year: 4, amount: -100000 },
-      { year: 5, amount: 25000 },
-      { year: 6, amount: 25000 },
-      { year: 7, amount: 25000 },
+      { year: 0, amount: 0 },
+      { year: 1, amount: 0 },
     ]);
     setResult(null);
     setError('');

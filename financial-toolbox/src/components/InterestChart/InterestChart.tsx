@@ -36,6 +36,15 @@ const InterestChart: React.FC<InterestChartProps> = React.memo(({
     const simpleData = simpleInterestData.map((item) => item.amount);
     const compoundData = compoundInterestData.map((item) => item.amount);
 
+    // 计算Y轴范围，让差异更明显
+    const minValue = Math.min(...simpleData);
+    const maxValue = Math.max(...compoundData);
+    
+    // Y轴从单利的最小值开始（通常是本金），而不是从0开始
+    // 这样可以让复利曲线看起来更陡峭
+    const yAxisMin = Math.floor(minValue * 0.95); // 留5%的底部空间
+    const yAxisMax = Math.ceil(maxValue * 1.05); // 留5%的顶部空间
+
     // 配置图表选项
     const option: echarts.EChartsOption = {
       title: {
@@ -99,6 +108,8 @@ const InterestChart: React.FC<InterestChartProps> = React.memo(({
       },
       yAxis: {
         type: 'value',
+        min: yAxisMin,
+        max: yAxisMax,
         axisLabel: {
           formatter: (value: number) => {
             if (value >= 10000) {

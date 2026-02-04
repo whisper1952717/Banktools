@@ -1,7 +1,9 @@
 [build]
+  # 基础目录
+  base = "financial-toolbox"
   # 构建命令
   command = "npm run build"
-  # 发布目录（Vite 默认输出到 dist）
+  # 发布目录（相对于 base 目录）
   publish = "dist"
 
 # SPA 路由重定向规则

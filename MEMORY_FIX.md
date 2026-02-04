@@ -1,203 +1,173 @@
-# 解决构建时内存不足问题
+# 构建内存不足解决方案
 
-## 🔴 问题症状
+## 📊 当前内存状态分析
 
-构建时出现以下错误：
-```bash
-./deploy-simple.sh: line 70: 34039 Killed    npm run build
+根据你的 `free -h` 输出：
+```
+              total        used        free      shared  buff/cache   available
+Mem:          1.8Gi       813Mi       967Mi       1.0Mi        236Mi       1.0Gi
+Swap:         9.0Gi       190Mi       8.8Gi
 ```
 
-这表示构建进程被系统杀死，原因是**内存不足**。
+**问题分析**：
+- 物理内存：1.8GB（已用813MB，可用967MB）
+- Swap空间：9GB（已用190MB，可用8.8GB）
+- **构建失败原因**：Vite构建过程需要大量内存，即使有9GB swap，但物理内存太小，swap速度慢，导致构建超时被killed
 
 ---
 
-## ✅ 解决方案：扩大 Swap 空间
+## ✅ 解决方案
 
-### 方法 1：使用自动脚本（推荐）
+### 方案1：在本地构建后上传（推荐）⭐
 
-```bash
-# 1. 连接到服务器
-ssh root@47.96.251.147
-
-# 2. 进入项目目录
-cd /www/program/金融工具箱/financial-calculation-tools/financial-toolbox
-
-# 3. 运行 swap 扩容脚本
-chmod +x add-swap.sh
-sudo ./add-swap.sh
-
-# 4. 按提示输入 swap 大小
-# 推荐输入: 4 或 6 (GB)
-
-# 5. 等待完成后，重新运行部署
-./deploy-simple.sh
-```
-
-### 方法 2：手动扩大 Swap
+这是最快最可靠的方法：
 
 ```bash
-# 1. 关闭现有 swap
-sudo swapoff /swapfile
-
-# 2. 删除旧文件
-sudo rm /swapfile
-
-# 3. 创建 4GB swap（可以改为 6 或 8）
-sudo dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress
-
-# 4. 设置权限
-sudo chmod 600 /swapfile
-
-# 5. 格式化为 swap
-sudo mkswap /swapfile
-
-# 6. 启用 swap
-sudo swapon /swapfile
-
-# 7. 验证
-free -h
-swapon --show
-
-# 8. 添加到 fstab（开机自动挂载）
-echo "/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
-
-# 9. 优化 swap 使用策略
-sudo sysctl vm.swappiness=10
-echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
-```
-
----
-
-## 📊 推荐 Swap 大小
-
-根据服务器内存选择：
-
-| 物理内存 | 推荐 Swap | 说明 |
-|---------|----------|------|
-| 512MB - 1GB | 4GB | 最小配置 |
-| 1GB - 2GB | 4-6GB | 标准配置 |
-| 2GB - 4GB | 2-4GB | 较好配置 |
-| 4GB+ | 2GB | 充足配置 |
-
-**对于当前项目**：推荐使用 **4GB** 或 **6GB** swap。
-
----
-
-## 🔍 验证 Swap 是否生效
-
-```bash
-# 查看内存和 swap 状态
-free -h
-
-# 应该看到类似输出：
-#               total        used        free      shared  buff/cache   available
-# Mem:           1.7Gi       800Mi       200Mi        10Mi       700Mi       800Mi
-# Swap:          4.0Gi         0Bi       4.0Gi
-#                ^^^^ 这里应该显示你设置的大小
-
-# 查看 swap 详情
-swapon --show
-
-# 应该看到：
-# NAME      TYPE SIZE USED PRIO
-# /swapfile file 4G   0B   -2
-```
-
----
-
-## 🚀 重新部署
-
-Swap 扩容完成后：
-
-```bash
-# 进入项目目录
-cd /www/program/金融工具箱/financial-calculation-tools/financial-toolbox
-
-# 运行部署脚本
-./deploy-simple.sh
-```
-
-构建过程可能需要 2-5 分钟，请耐心等待。
-
----
-
-## 💡 其他优化建议
-
-### 1. 监控构建过程
-
-在另一个终端窗口监控内存使用：
-```bash
-# 实时查看内存使用
-watch -n 1 free -h
-
-# 或者查看进程
-top
-```
-
-### 2. 如果还是失败
-
-如果扩大到 6GB swap 还是失败，可以考虑：
-
-**选项 A：在本地构建后上传**
-```bash
-# 在本地电脑上
+# 1. 在本地（Windows）构建
 cd financial-toolbox
-npm install
 npm run build
 
-# 将 dist 目录打包
-tar -czf dist.tar.gz dist/
+# 2. 上传构建产物到服务器
+scp -r dist root@47.96.251.147:/tmp/financial-toolbox-dist
 
-# 上传到服务器
-scp dist.tar.gz root@47.96.251.147:/tmp/
-
-# 在服务器上解压
+# 3. 在服务器上部署
 ssh root@47.96.251.147
-cd /www/program/金融工具箱/financial-calculation-tools/financial-toolbox
-tar -xzf /tmp/dist.tar.gz
-# 然后手动复制文件到部署目录
-```
+cd /www/program/金融工具箱/financial-calculation-tools
 
-**选项 B：升级服务器配置**
-- 增加服务器内存（推荐至少 2GB）
+# 清理旧文件
+rm -rf assets index.html robots.txt vite.svg _redirects
+
+# 复制新文件
+cp -r /tmp/financial-toolbox-dist/* .
+
+# 设置权限
+chown -R nginx:nginx .
+chmod -R 755 .
+
+# 重启Nginx
+systemctl reload nginx
+
+# 清理临时文件
+rm -rf /tmp/financial-toolbox-dist
+```
 
 ---
 
-## 📝 常见问题
+### 方案2：限制Node.js内存使用
 
-### Q: Swap 会影响性能吗？
-A: 会有轻微影响，但我们设置了 `swappiness=10`，优先使用物理内存。Swap 主要用于构建时的临时需求。
+尝试限制Node.js的内存使用，让它更节省：
 
-### Q: 需要多大的磁盘空间？
-A: 创建 4GB swap 需要 4GB 磁盘空间。确保服务器有足够的可用空间：
 ```bash
-df -h
+# 在服务器上运行
+cd /www/program/金融工具箱/financial-calculation-tools/financial-toolbox
+
+# 使用较小的内存限制构建
+NODE_OPTIONS="--max-old-space-size=1024" npm run build
 ```
 
-### Q: Swap 是永久的吗？
-A: 是的，我们已经添加到 `/etc/fstab`，重启后会自动挂载。
+如果还是失败，尝试更小的值：
+```bash
+NODE_OPTIONS="--max-old-space-size=768" npm run build
+```
 
 ---
 
-## ✅ 成功标志
+### 方案3：增加物理内存（需要升级服务器）
 
-部署成功后，你会看到：
-```
-✅ 构建完成
-✅ 构建产物验证通过
-✅ 文件部署完成
-✅ 权限设置完成
-✅ Nginx 重新加载完成
-✅ 部署验证通过
-==========================================
-✅ 部署完成！
-==========================================
+如果经常需要在服务器上构建，建议升级服务器配置：
+- 当前：1.8GB内存
+- 建议：至少4GB内存
+
+---
+
+### 方案4：使用增量构建
+
+修改构建脚本，使用增量构建减少内存占用：
+
+```bash
+# 清理缓存后重新构建
+cd /www/program/金融工具箱/financial-calculation-tools/financial-toolbox
+rm -rf node_modules/.vite
+npm run build
 ```
 
-然后可以访问：
+---
+
+## 🎯 推荐操作流程
+
+### 立即解决（使用方案1）
+
+**在你的本地Windows电脑上**：
+
+1. 打开PowerShell或CMD
+2. 进入项目目录：
+   ```cmd
+   cd E:\Desktop\复利计算网页版\financial-toolbox
+   ```
+
+3. 构建项目：
+   ```cmd
+   npm run build
+   ```
+
+4. 上传到服务器：
+   ```cmd
+   scp -r dist root@47.96.251.147:/tmp/financial-toolbox-dist
+   ```
+
+5. SSH到服务器部署：
+   ```cmd
+   ssh root@47.96.251.147
+   ```
+
+6. 在服务器上执行：
+   ```bash
+   cd /www/program/金融工具箱/financial-calculation-tools
+   rm -rf assets index.html robots.txt vite.svg _redirects
+   cp -r /tmp/financial-toolbox-dist/* .
+   chown -R nginx:nginx .
+   chmod -R 755 .
+   systemctl reload nginx
+   rm -rf /tmp/financial-toolbox-dist
+   ```
+
+---
+
+## 📝 为什么Swap不够用？
+
+虽然你有9GB的swap空间，但是：
+
+1. **Swap速度慢**：Swap是硬盘空间，比物理内存慢100-1000倍
+2. **构建超时**：Vite构建需要快速的内存访问，swap太慢会导致超时
+3. **物理内存太小**：1.8GB物理内存对于现代前端构建工具来说太小了
+
+**类比**：
+- 物理内存 = 你的工作桌面（快速访问）
+- Swap = 你的抽屉（需要时间翻找）
+- 即使抽屉很大，但工作桌面太小，工作效率还是很低
+
+---
+
+## 🔍 验证部署
+
+部署完成后，访问：
 - http://47.96.251.147
 - http://www.lovetest.asia
 
+检查：
+- ✅ 复利计算器没有滑动条
+- ✅ 输入1亿元，差额显示高价值物品对比
+- ✅ IRR计算器现金流输入框为空
+- ✅ 图表Y轴优化，复利曲线更陡峭
+
 ---
 
-**祝部署顺利！** 🚀
+## 💡 长期建议
+
+1. **本地构建**：以后都在本地构建，然后上传dist目录
+2. **CI/CD**：考虑使用GitHub Actions等CI/CD工具自动构建和部署
+3. **升级服务器**：如果预算允许，升级到至少4GB内存的服务器
+
+---
+
+**需要帮助？** 告诉我你选择哪个方案，我可以提供更详细的指导！

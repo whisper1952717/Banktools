@@ -1,9 +1,10 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ConfigProvider, Spin } from 'antd';
+import { ConfigProvider, Spin, Tag } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import Layout from './components/Layout';
 import { RiskWarningModal } from './components/RiskDisclaimer';
+import { isStandalone, getDisplayMode, getPlatform } from './utils/pwa';
 import './App.css';
 
 // 路由级别的代码分割 - 懒加载页面组件
@@ -30,6 +31,23 @@ const LoadingFallback = () => (
  * 主应用组件
  */
 function App() {
+  const [pwaInfo, setPwaInfo] = useState({
+    isStandalone: false,
+    displayMode: 'browser',
+    platform: 'unknown',
+  });
+
+  useEffect(() => {
+    // 仅在开发环境显示 PWA 信息
+    if (import.meta.env.DEV) {
+      setPwaInfo({
+        isStandalone: isStandalone(),
+        displayMode: getDisplayMode(),
+        platform: getPlatform(),
+      });
+    }
+  }, []);
+
   return (
     <ConfigProvider
       locale={zhCN}
@@ -42,6 +60,28 @@ function App() {
       }}
     >
       <Router>
+        {/* 开发环境 PWA 状态指示器 */}
+        {import.meta.env.DEV && (
+          <div
+            style={{
+              position: 'fixed',
+              bottom: 10,
+              right: 10,
+              zIndex: 9999,
+              display: 'flex',
+              gap: '8px',
+              flexWrap: 'wrap',
+              maxWidth: '300px',
+            }}
+          >
+            <Tag color={pwaInfo.isStandalone ? 'success' : 'default'}>
+              {pwaInfo.isStandalone ? '独立模式' : '浏览器模式'}
+            </Tag>
+            <Tag color="blue">{pwaInfo.displayMode}</Tag>
+            <Tag color="purple">{pwaInfo.platform}</Tag>
+          </div>
+        )}
+
         {/* 风险提示弹窗 */}
         <RiskWarningModal />
 

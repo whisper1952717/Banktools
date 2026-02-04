@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生成 PWA 图标</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    canvas {
+      border: 1px solid #ddd;
+      margin: 20px;
+    }
+    button {
+      background: #1890ff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    button:hover {
+      background: #096dd9;
+    }
+    .preview {
+      display: inline-block;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>PWA 图标生成器</h1>
+  <p>点击下面的按钮下载不同尺寸的图标</p>
+  
+  <div id="previews"></div>
+  
+  <div>
+    <button onclick="downloadIcon(192)">下载 192x192</button>
+    <button onclick="downloadIcon(512)">下载 512x512</button>
+    <button onclick="downloadAllIcons()">下载全部</button>
+  </div>
+
+  <script>
+    const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="80" fill="#1890ff"/>
+  <circle cx="256" cy="200" r="80" fill="#ffd700" stroke="#fff" stroke-width="8"/>
+  <text x="256" y="220" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#1890ff" text-anchor="middle">¥</text>
+  <path d="M 200 320 L 256 260 L 312 320" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256" y1="260" x2="256" y2="380" stroke="#fff" stroke-width="16" stroke-linecap="round"/>
+  <path d="M 120 420 Q 180 400 220 360 T 392 300" fill="none" stroke="#52c41a" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="392" cy="300" r="8" fill="#52c41a"/>
+  <text x="256" y="470" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#fff" text-anchor="middle">金融工具</text>
+</svg>`;
+
+    function createCanvas(size) {
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      return canvas;
+    }
+
+    function svgToCanvas(canvas, callback) {
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      
+      img.onload = function() {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        URL.revokeObjectURL(url);
+        callback();
+      };
+      
+      img.src = url;
+    }
+
+    function downloadIcon(size) {
+      const canvas = createCanvas(size);
+      svgToCanvas(canvas, () => {
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `icon-${size}x${size}.png`;
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+      });
+    }
+
+    function downloadAllIcons() {
+      [192, 512].forEach((size, index) => {
+        setTimeout(() => downloadIcon(size), index * 500);
+      });
+    }
+
+    // 创建预览
+    function createPreviews() {
+      const previewsDiv = document.getElementById('previews');
+      [192, 512].forEach(size => {
+        const div = document.createElement('div');
+        div.className = 'preview';
+        
+        const canvas = createCanvas(size);
+        canvas.style.width = '150px';
+        canvas.style.height = '150px';
+        
+        svgToCanvas(canvas, () => {});
+        
+        const label = document.createElement('p');
+        label.textContent = `${size}x${size}`;
+        
+        div.appendChild(canvas);
+        div.appendChild(label);
+        previewsDiv.appendChild(div);
+      });
+    }
+
+    createPreviews();
+  </script>
+</body>
+</html>

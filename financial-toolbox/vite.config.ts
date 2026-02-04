@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['vite.svg', 'robots.txt'],
+      includeAssets: ['icon-192.png', 'icon-512.png', '金融工具箱app封面.png', 'robots.txt'],
       manifest: {
         name: '金融常用计算工具',
         short_name: '金融工具箱',
@@ -16,25 +16,42 @@ export default defineConfig({
         theme_color: '#1890ff',
         background_color: '#ffffff',
         display: 'standalone',
-        start_url: '/',
+        orientation: 'portrait-primary',
+        start_url: '/?source=pwa',
         scope: '/',
+        lang: 'zh-CN',
+        dir: 'ltr',
+        categories: ['finance', 'utilities'],
         icons: [
           {
-            src: '/vite.svg',
-            sizes: '512x512',
-            type: 'image/svg+xml',
+            src: '/icon-192.png',
+            sizes: '192x192',
+            type: 'image/png',
             purpose: 'any'
           },
           {
-            src: '/vite.svg',
+            src: '/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: '/icon-192.png',
             sizes: '192x192',
-            type: 'image/svg+xml',
+            type: 'image/png',
+            purpose: 'maskable'
+          },
+          {
+            src: '/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
             purpose: 'maskable'
           }
         ]
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 增加到 5MB
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,

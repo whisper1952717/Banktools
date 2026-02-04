@@ -19,6 +19,13 @@
 - 智能生成风险评分和等级
 - 提供个性化的资产配置建议参考
 
+### 4. PWA 渐进式 Web 应用 🆕
+- ✅ 可安装到主屏幕，像原生应用一样使用
+- ✅ 支持离线访问，无网络也能使用核心功能
+- ✅ 快速启动，显示品牌启动画面
+- ✅ 自适应图标，完美适配各种设备
+- 📖 详细指南：[PWA_GUIDE.md](./PWA_GUIDE.md)
+
 ## 🚀 技术栈
 
 - **前端框架**: React 18 + TypeScript
@@ -28,20 +35,36 @@
 - **路由**: React Router 6
 - **样式**: CSS Modules + Tailwind CSS
 - **精度计算**: Decimal.js
+- **PWA**: vite-plugin-pwa + Workbox
 
 ## 📱 设备支持
 
 - ✅ 手机竖屏/横屏
 - ✅ 平板电脑
 - ✅ 桌面浏览器
+- ✅ PWA 安装（安卓/iOS/桌面）
 - 采用移动优先设计，触控区域≥44x44px
+
+### PWA 浏览器兼容性
+
+| 浏览器 | 安装支持 | 独立模式 | 离线功能 |
+|--------|---------|---------|---------|
+| Chrome for Android | ✅ | ✅ | ✅ |
+| Samsung Internet | ✅ | ✅ | ✅ |
+| Edge for Android | ✅ | ✅ | ✅ |
+| Safari for iOS | ✅ | ✅ | ✅ |
+| Chrome Desktop | ✅ | ✅ | ✅ |
+| Firefox for Android | ⚠️ | ⚠️ | ✅ |
+
+详细的 PWA 功能说明和安装指南请查看 [PWA_GUIDE.md](./PWA_GUIDE.md)
 
 ## 🔒 隐私保护
 
 - ✅ 所有计算在客户端完成
 - ✅ 不向服务器发送任何用户数据
 - ✅ 不使用Cookie或追踪技术
-- ✅ 完全离线可用（部署后）
+- ✅ 完全离线可用（PWA 模式）
+- ✅ Service Worker 仅用于缓存，不收集数据
 
 ## 📦 安装与运行
 
@@ -187,7 +210,8 @@ financial-toolbox/
 │   │   ├── calculations.ts  # 计算函数
 │   │   ├── validators.ts    # 验证函数
 │   │   ├── formatters.ts    # 格式化函数
-│   │   └── assessment.ts    # 评估算法
+│   │   ├── assessment.ts    # 评估算法
+│   │   └── pwa.ts           # PWA 工具函数
 │   ├── constants/       # 常量配置
 │   │   ├── config.ts    # 全局配置
 │   │   └── assessment.ts # 问卷配置
@@ -196,16 +220,21 @@ financial-toolbox/
 │   └── main.tsx         # 入口文件
 ├── .kiro/               # Kiro 规格说明文档
 │   ├── specs/
-│   │   └── financial-toolbox/
-│   │       ├── requirements.md  # 需求文档
-│   │       ├── design.md        # 设计文档
-│   │       └── tasks.md         # 任务列表
+│   │   ├── financial-toolbox/
+│   │   │   ├── requirements.md  # 需求文档
+│   │   │   ├── design.md        # 设计文档
+│   │   │   └── tasks.md         # 任务列表
+│   │   └── pwa-android-optimization/
+│   │       ├── requirements.md  # PWA 需求文档
+│   │       ├── design.md        # PWA 设计文档
+│   │       └── tasks.md         # PWA 任务列表
 │   └── steering/
 │       └── chinese-language.md  # 中文语言规范
 ├── package.json
 ├── vite.config.ts       # Vite 配置
 ├── tsconfig.json        # TypeScript 配置
-└── README.md            # 项目文档
+├── README.md            # 项目文档
+└── PWA_GUIDE.md         # PWA 功能指南 🆕
 ```
 
 ## 🧪 测试
@@ -262,5 +291,21 @@ MIT License
 
 ---
 
-**版本**: 1.0.0  
-**最后更新**: 2026年1月
+**版本**: 1.1.0  
+**最后更新**: 2026年2月4日
+
+### 更新日志
+
+#### v1.1.0 (2026-02-04)
+- ✨ 新增 PWA 功能支持
+- ✨ 支持安装到主屏幕
+- ✨ 支持离线访问
+- ✨ 优化安卓设备体验
+- ✨ 添加独立模式运行
+- 📝 新增 PWA 功能指南
+
+#### v1.0.0 (2026-01)
+- 🎉 初始版本发布
+- ✨ 复利计算器
+- ✨ IRR 计算器
+- ✨ 资产体检功能
